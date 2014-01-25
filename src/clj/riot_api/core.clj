@@ -1,12 +1,11 @@
 (ns riot-api.core
-  (:require [compojure.core     :refer [defroutes GET]]
-            [ring.adapter.jetty :refer [run-jetty]]))
+  (:require [cheshire.core      :refer [parse-string]]
+            [clj-http.client    :as client]
+            [clojure.set        :refer [union]]))
 
-(defroutes routes
-  (GET "/" [] "Hello World"))
+(def url "https://prod.api.pvp.net/api/lol/")
 
-(def app
-  (-> routes))
-
-(defn -main [& args]
-  (run-jetty app {:port 4040}))
+(defn generate-url [type data]
+  (if
+    (= :champions type)
+    (str url (:api-version data) "/champion?api_key=" (:api-key data))))
