@@ -4,17 +4,16 @@
             [speclj.core          :refer :all]
             [riot-api.champions   :as champions]))
 
-(describe "champions"
-  (with response {:champions [{:name "taka"} {:name "foo"}]})
+(def response {:champions [{:name "taka"} {:name "foo"}]})
 
-  (it "returns a champion by name"
-    (with-redefs [client/get (fn [_] (generate-string @response))]
+(with-redefs [client/get (fn [_] {:body (generate-string response)})]
+  (describe "champions"
+
+    (it "returns a champion by name"
       (let [champion (champions/by-name {:name "taka" :api-key "api-key"})]
         (should= "taka"
-          (:name (first champion))))))
+          (:name (first champion)))))
 
-  (it "returns all champions"
-    (with-redefs [client/get (fn [_] (generate-string @response))]
-      (let [champions (champions/get-all)]
-        (should= 2 (count champions)))))
-  )
+    (it "returns all champions"
+      (let [champions (champions/get-all {:api-key "api-key"})]
+        (should= 2 (count champions))))))

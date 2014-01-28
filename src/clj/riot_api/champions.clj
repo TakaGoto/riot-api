@@ -13,8 +13,9 @@
 (defn- champions [data]
   (:champions
     (parse-string
-      (client/get
-        (generate-url :champions data)) true)))
+      (:body
+        (client/get
+          (generate-url :champions data))) true)))
 
 (defn by-name [data]
   (let [champions (champions (union default data))]
@@ -22,5 +23,5 @@
       #(if (= (:name data) (:name %)) %)
       champions)))
 
-(defn get-all []
-  (champions default))
+(defn get-all [data]
+  (champions (union default data)))
