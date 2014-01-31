@@ -7,8 +7,7 @@
 (def default
   {:api-version "v1.1"
    :region "na"
-   :api-key nil
-   :name nil})
+   :api-key nil})
 
 (defn- champions [data]
   (:champions

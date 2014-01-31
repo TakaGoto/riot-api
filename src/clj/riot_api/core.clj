@@ -7,9 +7,8 @@
 
 (defn generate-url [type data]
   (if (nil? (:api-key data))
-    "api key must be included"
-    (if
-      (= :champions type)
+    (throw (Exception. "API key must be included"))
+    (if (= :champions type)
       (str
         url (:region data) "/"
         (:api-version data) "/champion?api_key="

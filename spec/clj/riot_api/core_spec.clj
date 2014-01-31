@@ -16,7 +16,6 @@
     (should= @url
       (generate-url :champions (union champions-data {:api-key "api-key"}))))
 
-  (it "should return error if api key is nil"
-    (should= "api key must be included"
-      (generate-url :champions champions-data)))
-  )
+  (it "should throw Exception if api key is nil"
+    (should-throw Exception
+      (generate-url :champions champions-data))))
