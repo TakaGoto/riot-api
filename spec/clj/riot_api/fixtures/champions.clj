@@ -1,0 +1,23 @@
+{"champions"
+  [{"rankedPlayEnabled" true,
+       "active" true,
+       "difficultyRank" 6,
+       "name" "Aatrox",
+       "defenseRank" 4,
+       "attackRank" 8,
+       "magicRank" 3,
+       "botMmEnabled" false,
+       "botEnabled" false,
+       "id" 266,
+       "freeToPlay" false}
+  {"rankedPlayEnabled" true,
+      "active" true,
+      "difficultyRank" 7,
+      "name" "Zyra",
+      "defenseRank" 3,
+      "attackRank" 4,
+      "magicRank" 8,
+      "botMmEnabled" true,
+      "botEnabled" false,
+      "id" 143,
+      "freeToPlay" false}]}

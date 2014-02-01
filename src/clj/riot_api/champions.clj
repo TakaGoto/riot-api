@@ -15,22 +15,19 @@
     (parse-string
       (:body
         (client/get
-          (generate-url :champions data))) true)))
+          (generate-url :champions (union default data)))) true)))
 
-(defn- match-champion-name [data response]
+(defn- name-matches-champion [name champion]
   (=
-   (capitalize (:name data))
-   (:name response)))
-
-(defn- union-data [data]
-  (union default data))
+   (capitalize name)
+   (:name champion)))
 
 (defn by-name [data]
-  (let [champions (champions (union-data data))]
+  (let [champions (champions data)]
     (first
       (keep
-        #(if (match-champion-name data %) %)
+        #(if (name-matches-champion (:name data) %) %)
         champions))))
 
 (defn get-all [data]
-  (champions (union-data data)))
+  (champions data))
