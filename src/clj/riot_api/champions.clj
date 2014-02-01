@@ -1,9 +1,8 @@
 (ns riot-api.champions
   (:require [cheshire.core      :refer [parse-string]]
-            [clj-http.client    :as client]
             [clojure.set        :refer [union]]
             [clojure.string     :refer [capitalize]]
-            [riot-api.core      :refer [url generate-url]]))
+            [riot-api.util      :refer [generate-url request]]))
 
 (def default
   {:api-version "v1.1"
@@ -12,10 +11,8 @@
 
 (defn- champions [data]
   (:champions
-    (parse-string
-      (:body
-        (client/get
-          (generate-url :champions (union default data)))) true)))
+    (request :champions (union default data))))
+
 
 (defn- name-matches-champion [name champion]
   (=

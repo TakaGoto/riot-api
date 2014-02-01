@@ -11,13 +11,13 @@
 (describe "recent games"
   (it "retrieves 10 games"
     (with-redefs [client/get (fn [_] {:body (generate-string games)})]
-      (let [games (games/recent {:api-key "api-key"})]
+      (let [games (games/recent {:api-key "api-key" :summoner-id "123456"})]
       (should= 10
         (count games)))))
 
   (it "retrieves game mode"
     (with-redefs [client/get (fn [_] {:body (generate-string games)})]
-      (let [games (games/recent {:api-key "api-key"})]
+      (let [games (games/recent {:api-key "api-key" :summoner-id "123456"})]
         (should= "MATCHED_GAME"
           (:gameType (first games)))))))
 
