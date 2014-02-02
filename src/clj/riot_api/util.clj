@@ -13,13 +13,19 @@
   (if (nil? (:api-key data))
     (throw (Exception. "API key must be included"))))
 
+(defn- ensure-summoner-name [data]
+  (if (nil? (:summoner-names data))
+    (throw (Exception. "summoner name list cannot be empty"))))
+
 (defn- get-api-url [type data]
   (case type
     :champions "/champion"
     :teams (do (ensure-summoner-id data)
                (str "/team/by-summoner/" (:summoner-id data)))
     :games (do (ensure-summoner-id data)
-               (str "/game/by-summoner/" (:summoner-id data) "/recent"))))
+               (str "/game/by-summoner/" (:summoner-id data) "/recent"))
+    :summoners (do (ensure-summoner-name data)
+                   (str "/summoner/by-name/" (:summoner-name data)))))
 
 (defn generate-url [type data]
   (ensure-api-key data)
