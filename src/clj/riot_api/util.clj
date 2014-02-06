@@ -1,34 +1,37 @@
 (ns riot-api.util
   (:require [cheshire.core      :refer [parse-string]]
             [clj-http.client    :as client]
-            [clojure.set        :refer [union]]))
+            [clojure.set        :refer [union]]
+            [clojure.string     :refer [join]]))
 
 (def url "https://prod.api.pvp.net/api/lol/")
 
-(defn- ensure-summoner-id [data]
-  (if (nil? (:summoner-id data))
-    (throw (Exception. "Summoner ID is needed for this api call"))))
+(defn- ensure-not-nil [key data]
+  (if (nil? (key data))
+    (throw (Exception. (str key " cannot be nil")))))
 
-(defn- ensure-api-key [data]
-  (if (nil? (:api-key data))
-    (throw (Exception. "API key must be included"))))
+(defn- generate-teams-url [data]
+  (do (ensure-not-nil :summoner-id data)
+      (str "/team/by-summoner/" (:summoner-id data))))
 
-(defn- ensure-summoner-name [data]
-  (if (nil? (:summoner-names data))
-    (throw (Exception. "summoner name list cannot be empty"))))
+(defn- generate-games-url [data]
+  (do (ensure-not-nil :summoner-id data)
+      (str "/game/by-summoner/" (:summoner-id data) "/recent")))
+
+(defn- generate-summoners-url [data]
+  (do (ensure-not-nil :summoner-names data)
+      (str "/summoner/by-name/"
+           (join "," (:summoner-names data)))))
 
 (defn- get-api-url [type data]
   (case type
     :champions "/champion"
-    :teams (do (ensure-summoner-id data)
-               (str "/team/by-summoner/" (:summoner-id data)))
-    :games (do (ensure-summoner-id data)
-               (str "/game/by-summoner/" (:summoner-id data) "/recent"))
-    :summoners (do (ensure-summoner-name data)
-                   (str "/summoner/by-name/" (:summoner-name data)))))
+    :teams (generate-teams-url data)
+    :games (generate-games-url data)
+    :summoners (generate-summoners-url data)))
 
 (defn generate-url [type data]
-  (ensure-api-key data)
+  (ensure-not-nil :api-key data)
   (str
     url
     (:region data) "/"

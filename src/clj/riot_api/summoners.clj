@@ -9,5 +9,5 @@
    :api-key nil
    :summoner-names nil})
 
-(defn by-name [data]
+(defn by-names [data]
   (request :summoners (union default data)))

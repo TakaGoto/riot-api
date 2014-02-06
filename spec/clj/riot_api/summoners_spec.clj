@@ -6,15 +6,23 @@
             [speclj.core            :refer :all]))
 
 (def summoners
-  (fixture "multiple_summoner_summary"))
-
-(def summoner
-  (fixture "summoner_summary"))
+  (fixture "summoner_by_names"))
 
 (describe "summoner"
   (describe "summoner summary"
-    (it "retrieves a champion"
-      (with-redefs [client/get (fn [_] {:body (generate-string summoner)})]
-        (let [summoner (summoners/by-name {:api-key "api-key" :summoner-names "summonerOne"})]
+    (it "retrieves a summoner"
+      (with-redefs [client/get (fn [_] {:body (generate-string summoners)})]
+        (let [summoner (summoners/by-names {:api-key "api-key" :summoner-names ["summonerOne"]})]
           (should= "summonerblah"
-            (:name (:summonerOne summoner))))))))
+            (:name (:summonerOne summoner))))))
+
+    (it "retrieves multiple summoners"
+      (with-redefs [client/get (fn [_] {:body (generate-string summoners)})]
+        (let [summoners (summoners/by-names {:api-key "api-key" :summoner-names ["summonerOne" "summonerTwo"]})]
+          (should= 2 (count summoners))
+          (should= "summonerblah"
+            (:name (:summonerOne summoners)))
+          (should= "summonerblah1"
+            (:name (:summonerTwo summoners)))))))
+
+  )
