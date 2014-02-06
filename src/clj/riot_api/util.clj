@@ -18,6 +18,10 @@
   (do (ensure-not-nil :summoner-id data)
       (str "/game/by-summoner/" (:summoner-id data) "/recent")))
 
+(defn- generate-league-by-id-url [data]
+  (do (ensure-not-nil :summoner-id data)
+      (str "/league/by-summoner/" (:summoner-id data))))
+
 (defn- generate-summoners-by-names-url [data]
   (do (ensure-not-nil :summoner-names data)
       (str "/summoner/by-name/"
@@ -34,7 +38,8 @@
     :teams (generate-teams-url data)
     :games (generate-games-url data)
     :summoners-by-names (generate-summoners-by-names-url data)
-    :summoners-by-ids (generate-summoners-by-ids-url data)))
+    :summoners-by-ids (generate-summoners-by-ids-url data)
+    :league (generate-league-by-id-url data)))
 
 (defn generate-url [type data]
   (ensure-not-nil :api-key data)
