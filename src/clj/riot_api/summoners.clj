@@ -10,4 +10,7 @@
    :summoner-names nil})
 
 (defn by-names [data]
-  (request :summoners (union default data)))
+  (request :summoners-by-names (union default data)))
+
+(defn by-ids [data]
+  (request :summoners-by-ids (union default data)))
