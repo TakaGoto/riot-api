@@ -13,6 +13,6 @@
     (with-redefs [client/get (fn [_] {:body (generate-string league)})]
       (let [summoner-id ((first league) "participantId")
             tier ((first league) "tier")
-            league (league/by-id {:api-key "api-key" :summoner-id summoner-id})]
+            league (league/by-id "api-key" summoner-id)]
         (should= tier
           (:tier (first league)))))))

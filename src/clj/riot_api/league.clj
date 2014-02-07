@@ -8,5 +8,7 @@
    :api-key nil
    :summoner-id nil})
 
-(defn by-id [data]
-  (request :league (union default data)))
+(defn by-id [api-key id]
+  (request
+    :league
+    (union default {:api-key api-key :summoner-id id})))

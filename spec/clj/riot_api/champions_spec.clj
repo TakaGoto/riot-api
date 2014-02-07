@@ -13,17 +13,17 @@
 
   (it "returns a champion by name"
     (with-redefs [client/get (fn [_] {:body (generate-string champions)})]
-      (let [champion (champions/by-name {:name "Zyra" :api-key "api-key"})]
+      (let [champion (champions/by-name "api-key" "Zyra")]
         (should= "Zyra"
           (:name champion)))))
 
   (it "returns all champions"
     (with-redefs [client/get (fn [_] {:body (generate-string champions)})]
-      (let [champions (champions/get-all {:api-key "api-key"})]
+      (let [champions (champions/get-all "api-key")]
         (should= 2 (count champions)))))
 
   (it "beautifies champions name"
     (with-redefs [client/get (fn [_] {:body (generate-string champions)})]
-      (let [champion (champions/by-name {:name "zyra" :api-key "api-key"})]
+      (let [champion (champions/by-name"  api-key" "zyra")]
         (should= "Zyra"
           (:name champion))))))

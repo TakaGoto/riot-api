@@ -9,9 +9,11 @@
    :region "na"
    :api-key nil})
 
-(defn- champions [data]
+(defn- champions [api-key]
   (:champions
-    (request :champions (union default data))))
+    (request
+      :champions
+      (assoc default :api-key api-key))))
 
 
 (defn- name-matches-champion [name champion]
@@ -19,12 +21,12 @@
    (capitalize name)
    (:name champion)))
 
-(defn by-name [data]
-  (let [champions (champions data)]
+(defn by-name [api-key name]
+  (let [champions (champions api-key)]
     (first
       (keep
-        #(if (name-matches-champion (:name data) %) %)
+        #(if (name-matches-champion name %) %)
         champions))))
 
-(defn get-all [data]
-  (champions data))
+(defn get-all [api-key]
+  (champions api-key))

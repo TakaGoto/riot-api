@@ -9,6 +9,8 @@
    :api-key nil
    :summoner-id nil})
 
-(defn recent [data]
+(defn recent [api-key id]
   (:games
-    (request :games (union default data))))
+    (request
+      :games
+      (union default {:api-key api-key :summoner-id id}))))

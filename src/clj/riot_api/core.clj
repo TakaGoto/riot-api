@@ -5,23 +5,23 @@
             [riot-api.league              :as league]
             [riot-api.summoners           :as summoners]))
 
-(defn games-by-id [data]
-  (games/recent data))
+(defn games-by-id [api-key id]
+  (games/recent api-key id))
 
-(defn champions-by-name [data]
-  (champions/by-name))
+(defn champion-by-name [api-key name]
+  (champions/by-name api-key name))
 
-(defn all-champions [data]
-  (champions/get-all))
+(defn all-champions [api-key]
+  (champions/get-all api-key))
 
-(defn league-by-id [data]
-  (league/by-id data))
+(defn league-by-id [api-key id]
+  (league/by-id api-key id))
 
-(defn summoners-by-ids [data]
-  (summoners/by-ids data))
+(defn summoners-by-ids [api-key ids]
+  (summoners/by-ids api-key ids))
 
-(defn summoners-by-names [data]
-  (summoners/by-names data))
+(defn summoners-by-names [api-key names]
+  (summoners/by-names api-key names))
 
-(defn teams-by-id [data]
-  (teams/by-id data))
+(defn teams-by-id [api-key id]
+  (teams/by-id api-key id))
