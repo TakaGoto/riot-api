@@ -1,12 +1,12 @@
 (ns riot-api.util-spec
-  (:require [clojure.set                  :refer [union]]
-            [riot-api.util       :refer [generate-url]]
-            [riot-api.games               :as games]
-            [riot-api.champions           :as champions]
-            [riot-api.teams               :as teams]
-            [riot-api.league              :as league]
-            [riot-api.summoners           :as summoners]
-            [speclj.core                  :refer :all]))
+  (:require [clojure.set                       :refer [union]]
+            [riot-api.url-generator.core       :refer [generate-url]]
+            [riot-api.games                    :as games]
+            [riot-api.champions                :as champions]
+            [riot-api.teams                    :as teams]
+            [riot-api.league                   :as league]
+            [riot-api.summoners                :as summoners]
+            [speclj.core                       :refer :all]))
 
 (describe "util"
   (describe "champions url"

@@ -1,7 +1,8 @@
 (ns riot-api.summoners
-  (:require [cheshire.core   :refer [parse-string]]
-            [clojure.set     :refer [union]]
-            [riot-api.util   :refer [generate-url request]]))
+  (:require [cheshire.core               :refer [parse-string]]
+            [clojure.set                 :refer [union]]
+            [riot-api.util               :refer [request]]
+            [riot-api.url-generator.core :refer [generate-url]]))
 
 (def default
   {:api-version "v1.3"

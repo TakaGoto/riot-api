@@ -1,8 +1,9 @@
 (ns riot-api.champions
-  (:require [cheshire.core      :refer [parse-string]]
-            [clojure.set        :refer [union]]
-            [clojure.string     :refer [capitalize]]
-            [riot-api.util      :refer [generate-url request]]))
+  (:require [cheshire.core               :refer [parse-string]]
+            [clojure.set                 :refer [union]]
+            [clojure.string              :refer [capitalize]]
+            [riot-api.util               :refer [request]]
+            [riot-api.url-generator.core :refer [generate-url]]))
 
 (def default
   {:api-version "v1.1"
@@ -14,7 +15,6 @@
     (request
       :champions
       (assoc default :api-key api-key))))
-
 
 (defn- name-matches-champion [name champion]
   (=
