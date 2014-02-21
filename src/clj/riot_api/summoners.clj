@@ -21,5 +21,11 @@
     (union default {:api-key api-key :summoner-ids ids})))
 
 (defn names-by-ids [api-key ids]
-  (map #(:name %) (vals (by-ids api-key ids))))
+  (map
+    #(:name %) (vals (by-ids api-key ids))))
+
+(defn ids-by-names [api-key names]
+  (map
+    #(:id %) (vals (by-names api-key names))))
+
 
