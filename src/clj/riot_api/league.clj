@@ -12,3 +12,7 @@
   (request
     :league
     (union default {:api-key api-key :summoner-id id})))
+
+(defn get-division-by-id [api-key id]
+  (:tier
+    (by-id api-key id)))

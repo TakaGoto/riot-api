@@ -1,6 +1,5 @@
 (ns riot-api.teams
-  (:require [cheshire.core   :refer [parse-string]]
-            [clojure.set     :refer [union]]
+  (:require [clojure.set     :refer [union]]
             [riot-api.util   :refer [request]]
             [riot-api.url-generator.core :refer [generate-url]]))
 

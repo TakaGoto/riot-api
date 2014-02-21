@@ -17,7 +17,7 @@
     (with summoners-by-names-url "https://prod.api.pvp.net/api/lol/na/v1.3/summoner/by-name/fuuterror,nanaterror?api_key=api-key")
     (with summoners-by-ids-url "https://prod.api.pvp.net/api/lol/na/v1.3/summoner/123456,654321?api_key=api-key")
 
-    (with league-by-id "https://prod.api.pvp.net/api/lol/na/v2.3/league/by-summoner/123456?api_key=api-key")
+    (with league-by-id "https://prod.api.pvp.net/api/lol/na/v2.3/league/by-summoner/123456/entry?api_key=api-key")
 
     (it "generates the url for champions"
       (should= @champions-url
