@@ -12,7 +12,7 @@
   (fixture "summoner_by_summoner_id"))
 
 (describe "summoner summary"
-  (describe "summoner summary by summoner name"
+  (describe "by summoner name"
     (it "retrieves a summoner"
       (with-redefs [client/get (fn [_] {:body (generate-string summoner-by-names)})]
         (let [summoner-name (first (keys summoner-by-names))
@@ -30,8 +30,8 @@
           (should= "summonerblah1"
             (:name (:summonerTwo summoners)))))))
 
-  (describe "summoner summary by summoner Id"
-    (it "retrieves a summoner by summoner id"
+  (describe "summoner summary"
+    (it "by summoner id"
       (with-redefs [client/get (fn [_] {:body (generate-string summoner-by-ids)})]
         (let [summoner-id (first (keys summoner-by-ids))
               summoner-name ((summoner-by-ids summoner-id) "name")
@@ -48,4 +48,13 @@
           (should= "Syrdas"
             (:name ((keyword (first summoner-ids)) summoners)))
           (should= "fuuTERROR"
-            (:name ((keyword (second summoner-ids)) summoners))))))))
+            (:name ((keyword (second summoner-ids)) summoners))))))
+
+    (it "retrieves the names from a list of summoner ids"
+      (with-redefs [client/get (fn [_] {:body (generate-string summoner-by-ids)})]
+        (let [summoner-ids (keys summoner-by-ids)
+              names (summoners/names-by-ids "api-key" (vec summoner-ids))]
+          (should= 2
+            (count names))
+          (should-contain "fuuTERROR" names)
+          (should-contain "Syrdas" names))))))
